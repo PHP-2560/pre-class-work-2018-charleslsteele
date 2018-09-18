@@ -1,6 +1,5 @@
 # pre-class
 
-
 Make sure you commit this often with meaningfull messages. 
 
 ### Background
@@ -20,17 +19,61 @@ then this results in 10 exponentially distributed numbers with a rate \(\lambda=
 
 1. Generate 200 random values from the standard exponential distribution and store them in a vector `exp.draws.1`.  Find the mean and standard deviation of `exp.draws.1`.
 
+```{r}
+exp.draw.1 <- rexp(n=200, rate =1)
+mean1 <- mean(exp.draw.1)
+standard_deviation1 <- sd(exp.draw.1)
+```
+
 2. Repeat, but change the rate to 0.2, 5, 7.3 and 10, storing the results in vectors called  `exp.draws.0.2`,  `exp.draws.5`,  `exp.draws.7.3` and  `exp.draws.10`. 
+
+```{r}
+exp.draws.0.2 <- rexp(n=200, rate=0.2)
+exp.draws.5 <- rexp(n=200, rate=5)
+exp.draws.7.3 <- rexp(n=200, rate=7.3)
+exp.draws.10 <- rexp(n=200, rate=10)
+```
 
 3. The function `plot()` is the generic function in R for the visual display of data. `hist()` is a function that takes in and bins data as a side effect. To use this function, we must first specify what we'd like to plot.
     a. Use the `hist()` function to produce a histogram of your standard exponential distribution. 
     b. Use `plot()` with this vector to display the random values from your standard distribution in order.
     c. Now, use `plot()` with two arguments -- any two of your other stored random value vectors -- to create a scatterplot of the two vectors against each other.
 
+```{r}
+# a.
+hist(exp.draw.1)
+# b.
+plot(exp.draw.1)
+# c.
+plot(exp.draw.1, exp.draws.5)
+```
+
 4. We'd now like to compare the properties of each of our vectors. Begin by creating a vector of the means of each of our five distributions in the order we created them and saving this to a variable name of your choice. Using this and other similar vectors, create the following scatterplots and explain in words what is going on:
     a. The five means versus the five rates used to generate the distribution.
     b. The standard deviations versus the rates.
     c. The means versus the standard deviations.
+    
+```{r}
+# Vector of the means of each of our five distributions
+vector_means <- c(mean(exp.draw.1), mean(exp.draws.0.2), mean(exp.draws.5), mean(exp.draws.7.3), mean(exp.draws.10))
+rates <- c(1, .2, 5, 7.3, 10)
+
+# a.
+plot(rates, vector_means)
+
+Shown in the scatterplot, there is an inverse relationship between the mean of the distribution and the rate. The lower the rate, the higher the mean. The higher the rate, the lower the mean. This makes sense because in the exponential distrubution, the mean is 1/lamba. Because lamba is in the denominator, there is an inverse relationship. 
+
+# b.
+vector_sd <- c(standard_deviation1, sd(exp.draws.0.2), sd(exp.draws.10), sd(exp.draws.5), sd(exp.draws.7.3))
+plot(rates, vector_sd)
+
+Similiar to exercise a, there is an inverse relationship between the rate and standard deviation, highlighted by the scatterplot. As the rate increases, the standard deviation tends to decrease. As the rates approach zero, the standard deviation increases, making significant jumps as the rate approaches closer to zero.
+
+# c.
+plot(vector_sd, vector_means)
+
+The graph makes me think that there is a positive 1-1 linear relationship between the standard deviation and mean. As the standard deviation increases, the mean increases by the same amount. This makes sense because in an exponential distribution, the mean and standard deviation are the same, both being equal to lamba.
+```
 
 For each plot, explain in words what's going on.
 
