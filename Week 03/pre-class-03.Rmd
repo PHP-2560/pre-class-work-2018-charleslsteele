@@ -28,6 +28,7 @@ gapminder
 Use **dplyr** functions to address the following questions:
 
 1. How many unique countries are represented per continent?
+
 ```{r}
 CountryDataTable <- as.tbl(gapminder) 
 
@@ -37,14 +38,20 @@ Unique_Countries <- CountryDataTable%>%
       tally() %>%
         arrange(desc(by = n))
 
-
 # Africa has 52 countries, Asia has 33 countries, Europe has 30 countries, Americas has 25 countries, and Oceania has 2 countries.
-
-
-
 ```
+
 2. Which European nation had the lowest GDP per capita in 1997? 
 
+```{r}
+European_LowGDP <- CountryDataTable %>%
+  filter(continent == "Europe", year == 1997) %>% # Filtered by country and year (Europe, 1997)
+    arrange(gdpPercap) # Arranged from least to greatest by GDP per Capita
+      
+European_LowGDP[1,]
+
+# The European nation with the lowest GDP per capita in 1997 was Albania, with a value of 3193.       
+```
 
 
 
