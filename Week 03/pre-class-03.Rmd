@@ -56,7 +56,18 @@ European_LowGDP[1,]
 
 
 3. According to the data available, what was the average life expectancy across each continent in the 1980s?
+```{r}
+Avg_LE <- CountryDataTable %>%
+  group_by(continent) %>%
+   summarize(Avg_lifeExp = mean(lifeExp)) %>%
+    arrange(Avg_lifeExp)
 
+Avg_LE 
+
+# I first grouped the data by continent, then calculated the mean life expectancy for each continent. After, I sorted from least to greatest.
+
+# The average life expectancy was 48.9 for Africa, 60.1 for Asia, 64.7 for Americas, 71.9 for Europe, and 74.3 for Oceania. 
+```
 
 
 
