@@ -13,11 +13,29 @@ Using a loop, print the integers from 1 to 50.
 ### Question 2:
 
 A.  Using a loop, add all the integers between 0 and 1000.
-
+```{r}
+sum <- 0
+for (i in 0:1000) {
+  sum <- sum + i
+}
+# The sum of all the integers between 0 and 1000 is 500500.
+```
 B. Now, add all the EVEN integers between 0 and 1000 (hint: use seq())
+```{r}
+sum(seq(from = 0, to = 1000, by =2))
 
+# The sum of all the even integers between 0 and 1000 is 250500.
+```
 C. Now, repeat A and B WITHOUT using a loop.
+```{r}
+All_Integers <- c(0:1000)
+sum1 <- sum(All_Integers)
 
+Even_Integers <- seq(from = 0, to = 1000, by =2)
+sum2 <- sum(Even_Integers)
+
+# These produce the same results. Part B is the same because I didn't use a loop the first time.
+```
 ### Question 3:
 
 Here is a dataframe of survey data containing 5 questions :
