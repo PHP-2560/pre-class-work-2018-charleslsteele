@@ -9,7 +9,9 @@ Make sure you commit this often with meaningful messages.
 ### Question 1:
 
 Using a loop, print the integers from 1 to 50. 
+```{r}
 
+```
 ### Question 2:
 
 A.  Using a loop, add all the integers between 0 and 1000.
@@ -53,5 +55,22 @@ survey <- data.frame(
 The response to each question should be an integer between 1 and 5. Obviously, we have some bad values in the dataframe. The goal of this problem is to fix them.
 
 A. Using a loop, create a new dataframe called survey.clean where all the invalid values (those that are not integers between 1 and 5) are set to NA.
+```{r}
+survey.clean <- data.frame()
+for (i in 1:nrow(survey)) {
+  for(j in 1:ncol(survey)) {
+    if(survey[i,j]>=1 & survey[i,j]<=5) {
+      survey.clean[i,j] = survey[i,j]
+    } else {
+      survey.clean[i,j] = NA
+    }
+  }
+}
+```
 
 B. Now, again using a loop, add a new column to the dataframe called “invalid.answers” that indicates, for each participant, how many bad answers they gave.
+```{r}
+
+
+```
+
