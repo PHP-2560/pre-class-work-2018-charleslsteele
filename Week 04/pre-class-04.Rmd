@@ -70,7 +70,9 @@ for (i in 1:nrow(survey)) {
 
 B. Now, again using a loop, add a new column to the dataframe called “invalid.answers” that indicates, for each participant, how many bad answers they gave.
 ```{r}
-
-
+for (i in 1:nrow(survey)) {
+  na_count = sum(is.na(survey.clean[i,]))
+  survey.clean$invalid.answers[i] =na_count
+}
 ```
 
