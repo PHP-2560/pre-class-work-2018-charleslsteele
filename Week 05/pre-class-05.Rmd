@@ -96,15 +96,63 @@ bmi     Body Mass Index
 ### Question 1: Standardize Function
 
 A. Create a function called standardize.me() that takes a numeric vector as an argument, and returns the standardized version of the vector. 
-B. Assign all the numeric columns of the original WCGS dataset to a new dataset called WCGS.new.
-C. Using a loop and your new function, standardize all the variables WCGS.new dataset.
-D. What should the mean and standard deviation of all your new standardized variables be? Test your prediction by running a loop
+```{r}
+library(dplyr)
+library(purrr)
 
+standardize.me <- function(vect) {
+  vect_MEAN <- mean(vect)
+  vect_SD <- sd(vect)
+  Standardized <- (vect - vect_MEAN)/vect_SD
+  
+}
+
+library(purrr)
+library(dplyr)
+
+standarize.me = function(vec) {
+  vec.sd = sd(vec)
+  vec.mean = mean(vec)
+  vec.final = (vec - vec.mean) / vec.sd
+  return(vec.final)
+}
+```
+B. Assign all the numeric columns of the original WCGS dataset to a new dataset called WCGS.new.
+```{r}
+numeric_columns <- map_lgl(wcgs, is.numeric)
+WCGS.new <- wcgs[,numeric_columns]
+```
+C. Using a loop and your new function, standardize all the variables WCGS.new dataset.
+```{r}
+Standardized_WCGS <- WCGS.new
+for (i in 1:ncol(WCGS.new)) {
+    Standardized_WCGS[,i] <- standarize.me(WCGS.new[,i])
+}
+Standardized_WCGS
+```
+D. What should the mean and standard deviation of all your new standardized variables be? Test your prediction by running a loop
+```{r}
+for (i in 1:ncol(Standardized_WCGS)) {
+  testMean <- round(mean(Standardized_WCGS[,1]))
+  testSD <- sd(Standardized_WCGS[,1])
+  print(paste("The mean is",testMean,"and the standard deviation is",testSD))
+}
+
+# Because we standardized the variables, the mean is 0 and the standard deviation is 1.
+
+
+```
 
 
 
 ### Question 2: Looping to Calculate
 
 A. Using a loop, calculate the mean weight of the subjects separated by the type of CHD they have.
+```{r}
+
+```
 B. Now do the same thing, but now don’t use a loop
+```{r}
+
+```
 
