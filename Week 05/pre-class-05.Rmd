@@ -149,10 +149,58 @@ for (i in 1:ncol(Standardized_WCGS)) {
 
 A. Using a loop, calculate the mean weight of the subjects separated by the type of CHD they have.
 ```{r}
+library(dplyr)
 
+
+types <- (unique(wcgs$typchd69))
+
+mean_weight_CHDType <- data.frame(CHDType = c("no CHD", "MI or SD", "silent MI", "angina"), weight <- c(0,0,0,0))
+
+count_noCHD <- 0
+count_MIorSD <- 0
+count_silent <- 0
+count_angina <- 0
+
+
+for(i in 1:nrow(wcgs)) {
+  if(wcgs$typchd69[i] == "no CHD") {
+   
+    mean_weight_CHDType[1,2] <-  mean_weight_CHDType[1,2] + wcgs$weight[i]
+    count_noCHD <- count_noCHD + 1
+    
+  } else if (wcgs$typchd69[i] == "MI or SD") {
+    
+    mean_weight_CHDType[2,2] <-  mean_weight_CHDType[2,2] + wcgs$weight[i]
+    count_MIorSD <- count_MIorSD + 1
+  
+  } else if (wcgs$typchd69[i] == "silent MI") {
+    
+    mean_weight_CHDType[3,2] <-  mean_weight_CHDType[3,2] + wcgs$weight[i]
+    count_silent <- count_silent + 1
+  
+  } else {
+    
+    mean_weight_CHDType[4,2] <-  mean_weight_CHDType[4,2] + wcgs$weight[i]
+    count_angina <- count_angina + 1
+    
+  } 
+}
+mean_weight_CHDType[1,2] =  mean_weight_CHDType[1,2]/count_noCHD
+mean_weight_CHDType[2,2] =  mean_weight_CHDType[2,2]/count_MIorSD     
+mean_weight_CHDType[3,2] =  mean_weight_CHDType[3,2]/count_silent
+mean_weight_CHDType[4,2] =  mean_weight_CHDType[4,2]/count_angina
+     
+mean_weight_CHDType
+
+# The highest mean weight is angina followed by silent MI, MI or SD, then no CHD.
 ```
 B. Now do the same thing, but now don’t use a loop
 ```{r}
 
+mean_typesCHD <- wcgs %>%
+  group_by(typchd69) %>%
+    summarise(mean_weight = mean(weight, na.rm = T))
+
+# This is much more efficient.
 ```
 
