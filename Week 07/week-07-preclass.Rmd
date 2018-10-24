@@ -130,16 +130,16 @@ Gamblers_Ruin3 <- function(bet, bankroll, prob) {
   return(bankroll)
 }
 
-bankrollAmounts <- vector()
+bankrollAmounts3 <- vector()
 for (i in 1:5000) {
   amount <- Gamblers_Ruin3(bet = 100, bankroll = 900, prob = 0.5)
-  bankrollAmounts <- c(bankrollAmounts, amount)
+  bankrollAmounts3 <- c(bankrollAmounts3, amount)
 }
 
-mean(bankrollAmounts)
-# The mean of the bankroll account after 500 hands is 695.2336.
-var(bankrollAmounts)
-# The variance of the bankroll account after 500 hands is 63121076.
+mean(bankrollAmounts3)
+# The mean of the bankroll account after 500 hands is 750.2391.
+var(bankrollAmounts3)
+# The variance of the bankroll account after 500 hands is 130766877.
 ``` 
 Note: you *must* stop playing if your player has gone bust. How will you handle this in the `for` loop?
 
