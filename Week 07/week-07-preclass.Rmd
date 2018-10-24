@@ -79,14 +79,72 @@ mean(under5000)
 ```    
     d. the mean and variance of your bankroll after 100 hands (including busts).
 ```{r}
+Gamblers_Ruin2 <- function(bet, bankroll, prob) {
+  count <- 0
+  while(bet >0) { 
+  ProbTurn <- runif(1)
+  if(ProbTurn <= prob) {
+    bankroll <- bankroll + bet
+    #now I need to raise the bet to a fixed fraction of the bankroll, given from the definition
+    bet <- (bankroll + bet)*.1 # the raise is .1 since the first is 1/10 of the total bankroll (100/1000)
+  } else {
+    bankroll <- bankroll - bet
+    bet <- bet
+  }
+  count <- count +1
+  if(count == 100) {break}
+  if(bankroll < bet) {break}
+  }
+  return(bankroll)
+}
 
+bankrollAmounts <- vector()
+for (i in 1:5000) {
+  amount <- Gamblers_Ruin2(bet = 100, bankroll = 900, prob = 0.5)
+  bankrollAmounts <- c(bankrollAmounts, amount)
+}
 
+mean(bankrollAmounts)
+# The mean of the bankroll account after 100 hands is 902.5504.
+var(bankrollAmounts)
+# The variance of the bankroll account after 100 hands is 3194912.
 ```    
     e. the mean and variance of your bankroll after 500 hands (including busts).
 ```{r}
+Gamblers_Ruin3 <- function(bet, bankroll, prob) {
+  count <- 0
+  while(bet >0) { 
+  ProbTurn <- runif(1)
+  if(ProbTurn <= prob) {
+    bankroll <- bankroll + bet
+    #now I need to raise the bet to a fixed fraction of the bankroll, given from the definition
+    bet <- (bankroll + bet)*.1 # the raise is .1 since the first is 1/10 of the total bankroll (100/1000)
+  } else {
+    bankroll <- bankroll - bet
+    bet <- bet
+  }
+  count <- count +1
+  if(count == 500) {break}
+  if(bankroll < bet) {break}
+  }
+  return(bankroll)
+}
 
+bankrollAmounts <- vector()
+for (i in 1:5000) {
+  amount <- Gamblers_Ruin3(bet = 100, bankroll = 900, prob = 0.5)
+  bankrollAmounts <- c(bankrollAmounts, amount)
+}
+
+mean(bankrollAmounts)
+# The mean of the bankroll account after 500 hands is 695.2336.
+var(bankrollAmounts)
+# The variance of the bankroll account after 500 hands is 63121076.
 ``` 
 Note: you *must* stop playing if your player has gone bust. How will you handle this in the `for` loop?
+
+When the player goes bust, his bankroll will be less than the bet amount. When this is the case, the for loop breaks. I have this set up as an if statement.
+
 
 2. **Markov Chains**. Suppose you have a game where the probability of winning on your first hand is 48%; each time you win, that probability goes up by one percentage point for the next game (to a maximum of 100%, where it must stay), and each time you lose, it goes back down to 48%. Assume you cannot go bust and that the size of your wager is a constant $100.
     a. Is this a fair game? Simulate one hundred thousand sequential hands to determine the size of your return. Then repeat this simulation 99 more times to get a range of values to calculate the expectation.
