@@ -48,7 +48,14 @@ html_table(html_nodes(webpage, "table"))[[1]]
 6. Re-construct all of the links from the first column of the “What’s Moving” table.
 Hint: the base URL is “https://money.cnn.com”
 ```{r}
+Links <- webpage %>%
+  html_nodes(css = "td .wsod_symbol") %>%
+    html_attr("href")
 
+paste("https://money.cnn.com", Links, sep = "")
+
+# css attribute td class wsod_sumbol
+# all the links are pasted
 ```
 7. Extract the titles under the “Latest News” section (bottom middle of the web page.)
 ```{r}
